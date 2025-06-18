@@ -10,16 +10,19 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
-import sample.cafekiosk.spring.domain.product.infra.JpaProductRepository;
+import sample.cafekiosk.spring.domain.product.infra.ProductRepository;
+import sample.cafekiosk.spring.domain.product.infra.ProductRepositoryImpl;
 
 @ActiveProfiles("test") // yml 파일에 on-profile : test 기반으로 작동
 //@SpringBootTest
 @DataJpaTest
-class JpaProductRepositoryTest {
+@Import(ProductRepositoryImpl.class)
+class ProductRepositoryTest {
 
     @Autowired
-    private JpaProductRepository jpaProductRepository;
+    private ProductRepository productRepository;
 
     @Test
     @DisplayName("원하는 판매상태를 가진 상품들을 조회한다.")
@@ -41,13 +44,14 @@ class JpaProductRepositoryTest {
                 .price(4500)
                 .build();
 
-        product = jpaProductRepository.save(product);
-        product2 = jpaProductRepository.save(product2);
+        product = productRepository.save(product);
+        product2 = productRepository.save(product2);
         //when
-        List<Product> products = jpaProductRepository.findAllBySellingStatusIn(List.of(SELLING, HOLD));
+        List<Product> products = productRepository.findAllBySellingStatusIn(List.of(SELLING, HOLD));
         //then
         assertThat(products).hasSize(2)
-                .extracting("productNumber","name","sellingStatus")
+                .extracting("productNumber", "name", "sellingStatus")
+                // 검증하고자 하는 필드만 추출
                 .containsExactly(
                         tuple("001","아메리카노",SELLING),
                         tuple("002","카페라뗴",HOLD)
@@ -74,10 +78,10 @@ class JpaProductRepositoryTest {
                 .price(4500)
                 .build();
 
-        product = jpaProductRepository.save(product);
-        product2 = jpaProductRepository.save(product2);
+        product = productRepository.save(product);
+        product2 = productRepository.save(product2);
         //when
-        List<Product> products = jpaProductRepository.findAllByProductNumberIn(List.of("001","002"));
+        List<Product> products = productRepository.findAllByProductNumberIn(List.of("001","002"));
         //then
         assertThat(products).hasSize(2)
                 .extracting("productNumber","name","sellingStatus")

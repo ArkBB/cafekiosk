@@ -38,6 +38,7 @@ public class Order extends BaseEntity {
     private LocalDateTime orderTime;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    //order가 삭제될 때 orderProduct 또한 같이 움직이게
     private List<OrderProduct> orderProducts = new ArrayList<>();
 
     public Order(List<Product> products, LocalDateTime registered) {

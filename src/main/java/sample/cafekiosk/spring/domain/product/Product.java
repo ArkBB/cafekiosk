@@ -22,6 +22,8 @@ import sample.cafekiosk.spring.domain.BaseEntity;
 @AllArgsConstructor
 public class Product extends BaseEntity {
 
+    //Product에서는 Order를 알 필요가 없다고 생각해 굳이 관계를 맺지 않았다.
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
@@ -38,5 +40,7 @@ public class Product extends BaseEntity {
     private String name;
 
     private int price;
+
+
 
 }

@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 import lombok.Builder;
 import lombok.Getter;
 import sample.cafekiosk.spring.domain.order.Order;
-import sample.cafekiosk.spring.domain.order.OrderStatus;
 import sample.cafekiosk.spring.domain.orderproduct.OrderProduct;
 import sample.cafekiosk.spring.domain.product.response.ProductResponse;
 
