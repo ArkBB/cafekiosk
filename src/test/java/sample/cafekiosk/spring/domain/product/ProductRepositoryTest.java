@@ -90,4 +90,49 @@ class ProductRepositoryTest {
                         tuple("002","카페라뗴",HOLD)
                 );
     }
+
+    @DisplayName("가장 마지막으로 저장한 상품의 상품번호를 읽어온다.")
+    @Test
+    void findLatestProductNumber() {
+
+        //given
+        Product product = Product.builder()
+                .productNumber("001")
+                .type(ProductType.HANDMADE)
+                .sellingStatus(SELLING)
+                .name("아메리카노")
+                .price(4000)
+                .build();
+        Product product2 = Product.builder()
+                .productNumber("002")
+                .type(ProductType.HANDMADE)
+                .sellingStatus(HOLD)
+                .name("카페라뗴")
+                .price(4500)
+                .build();
+
+        productRepository.saveAll(List.of(product,product2));
+
+        //when
+        String latestProductNum = productRepository.findLatestProduct();
+
+        //then
+        assertThat(latestProductNum)
+                .isEqualTo("002");
+
+    }
+
+    @DisplayName("가장 마지막으로 저장한 상품의 상품번호를 읽어올 때, 상품이 하나도 없는 경우에는 null을 반환한다.")
+    @Test
+    void findLatestProductNumberWhenProductIsEmpty() {
+
+
+        //when
+        String latestProductNum = productRepository.findLatestProduct();
+
+        //then
+        assertThat(latestProductNum)
+                .isNull();
+
+    }
 }

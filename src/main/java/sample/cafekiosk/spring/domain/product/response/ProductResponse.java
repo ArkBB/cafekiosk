@@ -11,16 +11,16 @@ public class ProductResponse {
 
     private Long id;
     private String productNumber;
-    private ProductSellingStatus sellingType;
+    private ProductSellingStatus sellingStatus;
     private ProductType type;
     private String name;
     private int price;
 
     @Builder
-    private ProductResponse(Long id, String productNumber, ProductSellingStatus sellingType, ProductType type, String name, int price) {
+    private ProductResponse(Long id, String productNumber, ProductSellingStatus sellingStatus, ProductType type, String name, int price) {
         this.id = id;
         this.productNumber = productNumber;
-        this.sellingType = sellingType;
+        this.sellingStatus = sellingStatus;
         this.type = type;
         this.name = name;
         this.price = price;
@@ -32,7 +32,7 @@ public class ProductResponse {
         return ProductResponse.builder()
                 .id(product.getId())
                 .productNumber(product.getProductNumber())
-                .sellingType(product.getSellingStatus())
+                .sellingStatus(product.getSellingStatus())
                 .type(product.getType())
                 .name(product.getName())
                 .price(product.getPrice())

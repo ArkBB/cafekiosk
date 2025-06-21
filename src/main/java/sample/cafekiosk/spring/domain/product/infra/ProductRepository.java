@@ -15,4 +15,6 @@ public interface ProductRepository{
     List<Product> findAllByProductNumberIn(List<String> productNumbers);
 
     void deleteAllInBatch();
+
+    String findLatestProduct();
 }

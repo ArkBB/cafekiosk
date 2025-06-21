@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sample.cafekiosk.spring.domain.BaseEntity;
@@ -41,19 +42,24 @@ public class Order extends BaseEntity {
     //order가 삭제될 때 orderProduct 또한 같이 움직이게
     private List<OrderProduct> orderProducts = new ArrayList<>();
 
-    public Order(List<Product> products, LocalDateTime registered) {
 
-        this.orderStatus = OrderStatus.INIT;
+
+    @Builder
+    private Order(List<Product> products,OrderStatus orderStatus, LocalDateTime orderTime) {
+        this.orderStatus = orderStatus;
         this.totalPrice = calculateTotalPrice(products);
-        this.orderTime = registered;
+        this.orderTime = orderTime;
         this.orderProducts = products.stream()
                 .map(product -> new OrderProduct(this, product))
                 .toList();
-
     }
 
     public static Order create(List<Product> products,LocalDateTime registered) {
-        return new Order(products,registered);
+        return Order.builder()
+                .orderStatus(OrderStatus.INIT)
+                .products(products)
+                .orderTime(registered)
+                .build();
     }
 
     private int calculateTotalPrice(List<Product> products) {
