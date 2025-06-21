@@ -2,7 +2,6 @@ package sample.cafekiosk.spring.domain.product.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
-import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
@@ -15,7 +14,7 @@ import sample.cafekiosk.spring.domain.product.Product;
 import sample.cafekiosk.spring.domain.product.ProductSellingStatus;
 import sample.cafekiosk.spring.domain.product.ProductType;
 import sample.cafekiosk.spring.domain.product.infra.ProductRepository;
-import sample.cafekiosk.spring.domain.product.request.ProductCreateRequest;
+import sample.cafekiosk.spring.domain.product.controller.request.ProductCreateRequest;
 import sample.cafekiosk.spring.domain.product.response.ProductResponse;
 
 @ActiveProfiles("test")
@@ -52,7 +51,7 @@ class ProductServiceTest {
                 .price(5500)
                 .build();
 
-        ProductResponse productResponse = productService.createProduct(request);
+        ProductResponse productResponse = productService.createProduct(request.toServiceRequest());
 
         // then
         assertThat(productResponse)
@@ -89,7 +88,7 @@ class ProductServiceTest {
                 .price(5500)
                 .build();
 
-        ProductResponse productResponse = productService.createProduct(request);
+        ProductResponse productResponse = productService.createProduct(request.toServiceRequest());
 
         // then
         assertThat(productResponse)

@@ -18,7 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import sample.cafekiosk.spring.domain.product.ProductSellingStatus;
 import sample.cafekiosk.spring.domain.product.ProductType;
-import sample.cafekiosk.spring.domain.product.request.ProductCreateRequest;
+import sample.cafekiosk.spring.domain.product.controller.request.ProductCreateRequest;
 import sample.cafekiosk.spring.domain.product.response.ProductResponse;
 import sample.cafekiosk.spring.domain.product.service.ProductService;
 

@@ -1,4 +1,4 @@
-package sample.cafekiosk.spring.domain.order.request;
+package sample.cafekiosk.spring.domain.order.service.request;
 
 import java.util.List;
 import lombok.Builder;
@@ -7,12 +7,13 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class OrderCreateRequest {
+public class OrderCreateServiceRequest {
 
     private List<String> productNumbers;
 
     @Builder
-    private OrderCreateRequest(List<String> productNumbers) {
+    private OrderCreateServiceRequest(List<String> productNumbers) {
         this.productNumbers = productNumbers;
     }
+
 }

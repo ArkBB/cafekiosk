@@ -1,4 +1,4 @@
-package sample.cafekiosk.spring.domain.product.request;
+package sample.cafekiosk.spring.domain.product.controller.request;
 
 
 import lombok.Builder;
@@ -11,6 +11,7 @@ import sample.cafekiosk.spring.domain.product.ProductType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import sample.cafekiosk.spring.domain.product.service.request.ProductServiceCreateRequest;
 
 @Getter
 @NoArgsConstructor
@@ -36,13 +37,14 @@ public class ProductCreateRequest {
         this.price = price;
     }
 
-    public Product toEntity(ProductCreateRequest request, String latestProductNumber) {
-        return Product.builder()
-                .productNumber(latestProductNumber)
-                .name(request.getName())
-                .price(request.getPrice())
-                .type(request.getType())
-                .sellingStatus(request.getSellingStatus())
+
+    public ProductServiceCreateRequest toServiceRequest() {
+        return ProductServiceCreateRequest.builder()
+                .type(type)
+                .sellingStatus(sellingStatus)
+                .name(name)
+                .price(price)
                 .build();
+
     }
 }
