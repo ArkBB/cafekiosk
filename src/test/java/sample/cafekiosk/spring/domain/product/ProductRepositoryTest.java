@@ -12,14 +12,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
+import sample.cafekiosk.spring.IntegrationTestSupport;
 import sample.cafekiosk.spring.domain.product.infra.ProductRepository;
 import sample.cafekiosk.spring.domain.product.infra.ProductRepositoryImpl;
 
-@ActiveProfiles("test") // yml 파일에 on-profile : test 기반으로 작동
-//@SpringBootTest
-@DataJpaTest
+
 @Import(ProductRepositoryImpl.class)
-class ProductRepositoryTest {
+@Transactional
+class ProductRepositoryTest extends IntegrationTestSupport {
 
     @Autowired
     private ProductRepository productRepository;

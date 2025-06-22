@@ -16,15 +16,17 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import sample.cafekiosk.spring.ControllerTestSupport;
 import sample.cafekiosk.spring.domain.product.ProductSellingStatus;
 import sample.cafekiosk.spring.domain.product.ProductType;
 import sample.cafekiosk.spring.domain.product.controller.request.ProductCreateRequest;
 import sample.cafekiosk.spring.domain.product.response.ProductResponse;
 import sample.cafekiosk.spring.domain.product.service.ProductService;
 
-@WebMvcTest(ProductController.class)
+
 @Import(ProductControllerTest.TestConfig.class)
-class ProductControllerTest {
+
+class ProductControllerTest extends ControllerTestSupport {
 
     @Autowired
     private MockMvc mockMvc;

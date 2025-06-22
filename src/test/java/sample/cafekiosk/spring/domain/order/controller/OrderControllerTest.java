@@ -14,12 +14,12 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import sample.cafekiosk.spring.ControllerTestSupport;
 import sample.cafekiosk.spring.domain.order.controller.request.OrderCreateRequest;
 import sample.cafekiosk.spring.domain.order.service.OrderService;
 
 
-@WebMvcTest(OrderController.class)
-class OrderControllerTest {
+class OrderControllerTest extends ControllerTestSupport {
 
     @Autowired
     private MockMvc mockMvc;

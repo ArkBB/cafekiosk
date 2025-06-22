@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import sample.cafekiosk.spring.IntegrationTestSupport;
 import sample.cafekiosk.spring.domain.order.OrderProductRepository;
 import sample.cafekiosk.spring.domain.order.OrderRepository;
 import sample.cafekiosk.spring.domain.order.controller.request.OrderCreateRequest;
@@ -27,10 +28,8 @@ import sample.cafekiosk.spring.domain.stock.Stock;
 import sample.cafekiosk.spring.domain.stock.StockRepository;
 
 
-@SpringBootTest
-//@Transactional
-@ActiveProfiles("test")
-class OrderServiceTest {
+
+class OrderServiceTest extends IntegrationTestSupport {
 
     @Autowired
     private OrderService orderService;
@@ -72,7 +71,7 @@ class OrderServiceTest {
 
         //when
         LocalDateTime registerdDateTime = LocalDateTime.now();
-        OrderResponse orderResponse = orderService.createOrder(request, registerdDateTime);
+        OrderResponse orderResponse = orderService.createOrder(request.toServcieOrderRequest(), registerdDateTime);
         //then
         assertThat(orderResponse.getId()).isNotNull();
         assertThat(orderResponse)
@@ -112,7 +111,7 @@ class OrderServiceTest {
                 .productNumbers(List.of("001","001","002","003"))
                 .build();
 
-        OrderResponse orderResponse = orderService.createOrder(request, registeredDateTime);
+        OrderResponse orderResponse = orderService.createOrder(request.toServcieOrderRequest(), registeredDateTime);
         // then
         assertThat(orderResponse)
                 .extracting("totalPrice","orderTime")
@@ -164,7 +163,7 @@ class OrderServiceTest {
                 .build();
 
 
-        assertThatThrownBy(() -> orderService.createOrder(request, registeredDateTime))
+        assertThatThrownBy(() -> orderService.createOrder(request.toServcieOrderRequest(), registeredDateTime))
                 .isInstanceOf(IllegalArgumentException.class)
                         .hasMessage("재고가 부족한 상품이 있습니다.");
 
@@ -189,7 +188,7 @@ class OrderServiceTest {
                 .productNumbers(List.of("001","001"))
                 .build();
 
-        OrderResponse orderResponse = orderService.createOrder(request, registeredDateTime);
+        OrderResponse orderResponse = orderService.createOrder(request.toServcieOrderRequest(), registeredDateTime);
         // then
         assertThat(orderResponse)
                 .extracting("totalPrice","orderTime")
